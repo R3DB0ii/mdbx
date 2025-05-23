@@ -1,15 +1,25 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-typedef struct {
-    const char* name;
-    const char* description;
-    void (*func)(void);
-} callable_func;
+#include <ncurses.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
 
-typedef void(*func_ptr)(void);
+#include "../res/options.h"
 
-extern void print_title(int size);
-extern func_ptr func_choose_exec(const char* menuTitle, int count, ...);
+typedef void (*ActionFunc)();
+
+typedef struct MenuNode {
+    char *title;
+    ActionFunc action;
+    struct MenuNode **children;
+    int child_count;
+    struct MenuNode *parent;
+} MenuNode;
+
+int print_file_header(const char *filename, int max_lines);
+
+void draw_menu(MenuNode *menu, int highlight);
 
 #endif
