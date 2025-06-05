@@ -10,5 +10,6 @@ void dBFS_to_V_RMS(void);
 void V_RMS_to_dBFS(void);
 void Pa_to_dBSPL(void);
 void dBSPL_to_Pa(void);
+void hz_to_note(void);
 
 #endif

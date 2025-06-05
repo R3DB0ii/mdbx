@@ -94,3 +94,22 @@ void dBSPL_to_Pa(void) {
     printw("Premi un tasto per continuare...\n");
     getch();
 }
+
+void hz_to_note(void) {
+    clear();
+    printw("Hz: ");
+    refresh();
+    getnstr(input, 127);
+    nbuff = strtod(input, NULL);
+    clear();
+    double n = 12.0 * log2(nbuff / REF_C0_FREQ);
+    int noteIndex = (int)round(n);
+    double nearestFreq = REF_C0_FREQ * pow(2.0, noteIndex / 12.0);
+
+    int noteInOctave = noteIndex % 12;
+    if (noteInOctave < 0) noteInOctave += 12;
+    static const char *noteNames[] = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
+    printw("%s Hz = %s%d +%.1f cents\n", input, noteNames[noteInOctave], noteIndex / 12, 1200.0 * log2(nbuff / nearestFreq));
+    printw("Premi un tasto per continuare...\n");
+    getch();
+}
