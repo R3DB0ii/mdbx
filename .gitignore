@@ -8,5 +8,5 @@
 "*.exe"
 "*.out"
 "*.app"
-"menu"
+"src/menu"
 "mdbx"
