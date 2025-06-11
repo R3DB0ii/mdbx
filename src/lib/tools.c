@@ -1,5 +1,7 @@
 #include "tools.h"
 
+const char *noteNames[] = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
+
 char input[128];
 char aux1[128];
 char aux2[128];
@@ -108,8 +110,54 @@ void hz_to_note(void) {
 
     int noteInOctave = noteIndex % 12;
     if (noteInOctave < 0) noteInOctave += 12;
-    static const char *noteNames[] = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
     printw("%s Hz = %s%d +%.1f cents\n", input, noteNames[noteInOctave], noteIndex / 12, 1200.0 * log2(nbuff / nearestFreq));
     printw("Premi un tasto per continuare...\n");
     getch();
+}
+
+void note_to_hz(void) {
+    clear();
+    printw("Nota (es. C#5). ");
+    refresh();
+    getnstr(input, 127);
+    clear();
+    char base_note[4] = {0};  // Es. "C#", "Db"
+    int octave = 0;
+    int i = 0;
+    base_note[0] = toupper(input[0]);
+
+    if (input[0] && (input[1] == '#')) {
+        base_note[1] = input[1];
+        octave = atoi(&input[2]);
+    } else if (input[0] && (isdigit(input[1]))){
+        octave = atoi(&input[1]);
+    } else {
+        printw("Nota non valida\n");
+        printw("Premi un tasto per continuare...\n");
+        getch();
+        return;
+    }
+    int semitone = -1;
+
+    // Cerca nella versione con #
+    for (int j = 0; j < 12; j++) {
+        if (strcmp(base_note, noteNames[j]) == 0) {
+            semitone = j;
+            break;
+        }
+    }
+
+    if (semitone == -1) {
+        printw("Nota non valida\n");
+        printw("Premi un tasto per continuare...\n");
+        getch();
+        return;
+    }
+
+    // Calcola numero di semitoni rispetto ad A4 (440 Hz)
+    int n = (octave - 4) * 12 + (semitone - 9);
+    printw("%s = %.1f Hz\n", input, 440.0 * pow(2.0, n / 12.0));
+    printw("Premi un tasto per continuare...\n");
+    getch();
+
 }

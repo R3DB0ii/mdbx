@@ -13,7 +13,7 @@ MenuNode nodo_Pa_to_dBSPL = {"Pa -> dBSPL", Pa_to_dBSPL, NULL, 0, &menu_dB_conve
 MenuNode nodo_dBSPL_to_Pa = {"dBSPL -> Pa", dBSPL_to_Pa, NULL, 0, &menu_dB_converters};
 
 MenuNode nodo_hz_to_note = {"hz -> nota", hz_to_note, NULL, 0, &menu_waves_converters};
-
+MenuNode nodo_note_to_hz = {"nota -> hz", note_to_hz, NULL, 0, &menu_waves_converters};
 
 // ======== MENUS lv.2 ===========================================================================
 
@@ -34,10 +34,11 @@ MenuNode menu_dB_converters = {"dB", NULL, dB_converters, 7, &menu_converters};
 MenuNode *waves_converters[] = {
 
     &nodo_hz_to_note,
+    &nodo_note_to_hz,
 
 };
 
-MenuNode menu_waves_converters = {"Onde", NULL, waves_converters, 1, &menu_converters};
+MenuNode menu_waves_converters = {"Onde", NULL, waves_converters, 2, &menu_converters};
 
 
 // ======== MENUS lv.1 ===========================================================================
