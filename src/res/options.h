@@ -3,7 +3,7 @@
 
 #include <math.h>
 
-#define OPT_BANNER_PATH     "res/banner"
+#define OPT_BANNER_PATH     "src/res/banner"
 
 #define REF_A4_FREQ         440.0
 #define REF_C0_FREQ         (REF_A4_FREQ * pow(2.0, -4.75))
